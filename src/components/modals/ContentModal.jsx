@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function InstructorModal() {
-  return (
-    <div>InstructorModal</div>
-  )
+  return <div>InstructorModal</div>;
 }
 
-export default InstructorModal
+export default InstructorModal;

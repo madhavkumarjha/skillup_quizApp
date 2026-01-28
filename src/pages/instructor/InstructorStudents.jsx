@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function InstructorStudents() {
-  return (
-    <div>InstructorStudents</div>
-  )
+  return <div>InstructorStudents</div>;
 }
 
-export default InstructorStudents
+export default InstructorStudents;

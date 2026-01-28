@@ -1,11 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./features/auth/authSlice";
-import { courseApi } from "./features/api/course/courseApi";
-import { publicApi } from "./features/api/publicApi";
-import { instructorApi } from "./features/api/instructor/instructorApi";
-import { studentApi } from "./features/api/student/studentApi";
-import { helperApi } from "./features/api/helperApi";
-import { quizApi } from "./features/api/quiz/quizApi";
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './features/auth/authSlice';
+import { courseApi } from './features/api/course/courseApi';
+import { publicApi } from './features/api/publicApi';
+import { instructorApi } from './features/api/instructor/instructorApi';
+import { studentApi } from './features/api/student/studentApi';
+import { helperApi } from './features/api/helperApi';
+import { quizApi } from './features/api/quiz/quizApi';
 
 const store = configureStore({
   reducer: {

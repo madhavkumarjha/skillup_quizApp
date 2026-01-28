@@ -1,15 +1,14 @@
-import React from "react";
-import { X } from "lucide-react";
-import { privacyPolicy, termsConditions } from "../../constant/legalContent";
+import React from 'react';
+import { X } from 'lucide-react';
+import { privacyPolicy, termsConditions } from '../../constant/legalContent';
 
-function LegalModal({ type = "privacy", onClose }) {
-  const data = type === "privacy" ? privacyPolicy : termsConditions;
+function LegalModal({ type = 'privacy', onClose }) {
+  const data = type === 'privacy' ? privacyPolicy : termsConditions;
   const { title, sections } = data;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
       <div className="relative flex flex-col items-start bg-white max-w-2xl w-full rounded-2xl p-6 shadow-lg overflow-y-auto max-h-[80vh]">
-
         <h2 className="text-2xl font-semibold mb-2">{title}</h2>
         {data.lastUpdated && (
           <p className="text-sm text-gray-500 mb-4">

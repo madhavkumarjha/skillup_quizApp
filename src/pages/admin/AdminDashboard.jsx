@@ -1,8 +1,7 @@
-import AdminCard from "../../components/cards/adminCard";
-import { useGetAllInstructorsQuery } from "../../redux/features/api/instructor/instructorApi";
-import { useGetAllStudentsQuery } from "../../redux/features/api/student/studentApi";
-import Loader from "../../components/loader/Loader";
-
+import AdminCard from '../../components/cards/adminCard';
+import { useGetAllInstructorsQuery } from '../../redux/features/api/instructor/instructorApi';
+import { useGetAllStudentsQuery } from '../../redux/features/api/student/studentApi';
+import Loader from '../../components/loader/Loader';
 
 function AdminDashboard() {
   // Instructors data
@@ -20,7 +19,7 @@ function AdminDashboard() {
   } = useGetAllStudentsQuery();
 
   // Loading state
-  if (instructorLoading || studentLoading) return <Loader/>;
+  if (instructorLoading || studentLoading) return <Loader />;
 
   // Error state
   if (instructorError || studentError)
@@ -35,14 +34,14 @@ function AdminDashboard() {
       <AdminCard
         title="Total Instructors"
         count={totalInstructors}
-        type={"instructor"}
+        type={'instructor'}
       />
 
       {/* Student Card */}
       <AdminCard
         title="Total Students"
         count={totalStudents}
-        type={"student"}
+        type={'student'}
       />
     </div>
   );

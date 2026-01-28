@@ -1,5 +1,5 @@
-import React from "react";
-import { X, AlertCircle } from "lucide-react"; // lightweight icons
+import React from 'react';
+import { X, AlertCircle } from 'lucide-react'; // lightweight icons
 
 const DeleteConfirmModal = ({ onClose, onConfirm, type }) => {
   // if (!isOpen) return null;

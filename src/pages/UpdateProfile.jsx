@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
-} from "../redux/features/api/helperApi";
-import toast from "react-hot-toast";
-import Loader from "../components/loader/Loader";
-import { Plus, X } from "lucide-react";
+} from '../redux/features/api/helperApi';
+import toast from 'react-hot-toast';
+import Loader from '../components/loader/Loader';
+import { Plus, X } from 'lucide-react';
 
 function UpdateProfile() {
   const location = useLocation();
@@ -20,31 +20,31 @@ function UpdateProfile() {
     }
   }, [data]);
 
-const addExpertise = () => {
-  setFormData((prev) => ({
-    ...prev,
-    expertise: [...(prev.expertise || []), ""], // ✅ use "expertise"
-  }));
-};
+  const addExpertise = () => {
+    setFormData((prev) => ({
+      ...prev,
+      expertise: [...(prev.expertise || []), ''], // ✅ use "expertise"
+    }));
+  };
 
-// Update expertise at a given index
-const updateExpertise = (index, value) => {
-  const updated = [...(formData.expertise || [])];
-  updated[index] = value;
-  setFormData((prev) => ({
-    ...prev,
-    expertise: updated,
-  }));
-};
+  // Update expertise at a given index
+  const updateExpertise = (index, value) => {
+    const updated = [...(formData.expertise || [])];
+    updated[index] = value;
+    setFormData((prev) => ({
+      ...prev,
+      expertise: updated,
+    }));
+  };
 
-// Delete expertise at a given index
-const deleteExpertise = (index) => {
-  const updated = (formData.expertise || []).filter((_, i) => i !== index);
-  setFormData((prev) => ({
-    ...prev,
-    expertise: updated, 
-  }));
-};
+  // Delete expertise at a given index
+  const deleteExpertise = (index) => {
+    const updated = (formData.expertise || []).filter((_, i) => i !== index);
+    setFormData((prev) => ({
+      ...prev,
+      expertise: updated,
+    }));
+  };
 
   const [updateUserProfile] = useUpdateUserProfileMutation();
 
@@ -58,11 +58,11 @@ const deleteExpertise = (index) => {
     try {
       await updateUserProfile({ id: formData._id, data: formData }).unwrap();
       console.log(formData);
-      
-      toast.success("Profile updated successfully");
+
+      toast.success('Profile updated successfully');
     } catch (error) {
-      console.error("Failed to update profile:", error);
-      toast.error("Failed to update profile");
+      console.error('Failed to update profile:', error);
+      toast.error('Failed to update profile');
     }
   };
   if (isLoading) return <Loader />;
@@ -88,7 +88,7 @@ const deleteExpertise = (index) => {
               id="name"
               name="name"
               onChange={handleChange}
-              value={formData?.name || ""}
+              value={formData?.name || ''}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -103,7 +103,7 @@ const deleteExpertise = (index) => {
               type="email"
               id="email"
               name="email"
-              value={formData?.email || ""}
+              value={formData?.email || ''}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -119,7 +119,7 @@ const deleteExpertise = (index) => {
                 id="bio"
                 name="bio"
                 onChange={handleChange}
-                value={formData?.bio || ""}
+                value={formData?.bio || ''}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               ></textarea>
             </div>
@@ -136,20 +136,20 @@ const deleteExpertise = (index) => {
               <textarea
                 id="phone"
                 name="phone"
-                value={formData?.phone || ""}
+                value={formData?.phone || ''}
                 onChange={handleChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               ></textarea>
             </div>
           )}
 
-          { formData.role ==="instructor" && (
+          {formData.role === 'instructor' && (
             <div>
               <label className="flex gap-2 text-gray-700 items-center font-bold text-sm mb-2">
-                Experties{" "}
+                Experties{' '}
                 <Plus
                   className="bg-blue-500 text-white rounded-full"
-                  cursor={"pointer"}
+                  cursor={'pointer'}
                   size={18}
                   onClick={addExpertise}
                 />
@@ -169,7 +169,7 @@ const deleteExpertise = (index) => {
                 </div>
               ))}
             </div>
-           )} 
+          )}
           <div className="flex items-center justify-between">
             <button
               type="submit"

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import ShowCourse from "../modals/ShowCourse";
+import { useState } from 'react';
+import ShowCourse from '../modals/ShowCourse';
 
 function CourseCard({ course }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,12 +15,16 @@ function CourseCard({ course }) {
         <h3 className="text-lg font-semibold text-gray-800 mb-2">
           {course.title}
         </h3>
-        <p className="text-gray-600 text-sm mb-2 text-justify">{course.description}</p>
+        <p className="text-gray-600 text-sm mb-2 text-justify">
+          {course.description}
+        </p>
         <div className="flex items-center justify-between my-2">
           <p className="text-gray-600 text-sm capitalize">
             <strong>Instructor:</strong> {course.instructor.name}
           </p>
-          <p className="text-xs text-gray-600 capitalize"><strong>Category:</strong> {course.category}</p>
+          <p className="text-xs text-gray-600 capitalize">
+            <strong>Category:</strong> {course.category}
+          </p>
         </div>
         <button
           onClick={() => setModalOpen(true)}

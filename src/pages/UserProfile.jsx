@@ -1,14 +1,14 @@
-import { useSelector } from "react-redux";
-import { Edit, PhoneCall } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import ProfileModal from "../components/modals/ProfileModal";
+import { useSelector } from 'react-redux';
+import { Edit, PhoneCall } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import ProfileModal from '../components/modals/ProfileModal';
 import {
   useUpdateProfilePicMutation,
   useGetUserProfileQuery,
-} from "../redux/features/api/helperApi";
-import { toast } from "react-hot-toast";
-import Loader from "../components/loader/Loader";
+} from '../redux/features/api/helperApi';
+import { toast } from 'react-hot-toast';
+import Loader from '../components/loader/Loader';
 
 function UserProfile() {
   const { user } = useSelector((state) => state.auth);
@@ -23,21 +23,21 @@ function UserProfile() {
   const goToUpdateProfile = () => {
     navigation(`/${user.role}/update/profile`, {
       replace: true,
-      state: { userId: data?.user?._id }
+      state: { userId: data?.user?._id },
     });
   };
 
   const handleProfilePicUpdate = async (file) => {
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append('file', file);
 
       await updateProfilePic({ id: user._id, formData }).unwrap();
-      toast.success("Profile picture updated successfully");
+      toast.success('Profile picture updated successfully');
       setModalOpen(false);
     } catch (error) {
-      toast.error("Failed to update profile picture");
-      console.error("Failed to update profile picture:", error);
+      toast.error('Failed to update profile picture');
+      console.error('Failed to update profile picture:', error);
     }
   };
 
@@ -58,7 +58,7 @@ function UserProfile() {
             <img
               src={
                 data?.user?.avatar?.url ||
-                "https://img.freepik.com/free-photo/handsome-bearded-guy-posing-against-white-wall_273609-20597.jpg"
+                'https://img.freepik.com/free-photo/handsome-bearded-guy-posing-against-white-wall_273609-20597.jpg'
               }
               className="rounded-md object-cover h-full w-full shadow-lg"
               alt="Hamza Ali"
@@ -68,24 +68,22 @@ function UserProfile() {
 
         {/* Content */}
         <div className="px-6 pb-6">
-          <h1 className="mb-1 text-2xl">
-            {data?.user.name}
-          </h1>
+          <h1 className="mb-1 text-2xl">{data?.user.name}</h1>
           <p className="capitalize text-gray-700 text-sm text-center italic">
-            {data?.user.role==="instructor" ? data?.user.specializations : data?.user.role}
+            {data?.user.role === 'instructor'
+              ? data?.user.specializations
+              : data?.user.role}
           </p>
-          {
-            data?.user?.bio &&
-          <p className="text-gray-600 text-sm text-justify py-3">
-            {data?.user.bio}
-          </p>
-          }
-          {
-            data?.user?.phone &&
-          <p className="flex items-center justify-center text-gray-600 text-sm text-center">
-            <PhoneCall size={20}/> {data?.user.phone}
-          </p>
-          }
+          {data?.user?.bio && (
+            <p className="text-gray-600 text-sm text-justify py-3">
+              {data?.user.bio}
+            </p>
+          )}
+          {data?.user?.phone && (
+            <p className="flex items-center justify-center text-gray-600 text-sm text-center">
+              <PhoneCall size={20} /> {data?.user.phone}
+            </p>
+          )}
           {modalOpen && (
             <ProfileModal
               onClose={() => setModalOpen(false)}

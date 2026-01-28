@@ -1,7 +1,7 @@
-import { Plus, X } from "lucide-react";
-import { useUploadCourseMediaMutation } from "../../redux/features/api/helperApi";
-import { toast } from "react-hot-toast";
-import sanitizeName from "../../utils/sanitizeName";
+import { Plus, X } from 'lucide-react';
+import { useUploadCourseMediaMutation } from '../../redux/features/api/helperApi';
+import { toast } from 'react-hot-toast';
+import sanitizeName from '../../utils/sanitizeName';
 
 function CourseForm({
   courseDetails,
@@ -21,14 +21,14 @@ function CourseForm({
   };
 
   const categories = [
-    "frontend",
-    "backend",
-    "database",
-    "programming",
-    "design",
-    "business",
-    "marketing",
-    "other",
+    'frontend',
+    'backend',
+    'database',
+    'programming',
+    'design',
+    'business',
+    'marketing',
+    'other',
   ];
 
   const addChapter = () => {
@@ -37,13 +37,13 @@ function CourseForm({
       chapters: [
         ...courseDetails.chapters,
         {
-          title: "",
-          summary: "",
+          title: '',
+          summary: '',
           lessons: [
             {
-              lesson_name: "",
-              content: "",
-              resources: [{ title: "", url: "", fileId: "" }],
+              lesson_name: '',
+              content: '',
+              resources: [{ title: '', url: '', fileId: '' }],
             },
           ],
         },
@@ -77,9 +77,9 @@ function CourseForm({
   const addLesson = (chapterIndex) => {
     const updatedChapters = [...courseDetails.chapters];
     updatedChapters[chapterIndex].lessons.push({
-      lesson_name: "",
-      content: "",
-      resources: [{ title: "", url: "", fileId: "" }],
+      lesson_name: '',
+      content: '',
+      resources: [{ title: '', url: '', fileId: '' }],
     });
     setCourseDetails({ ...courseDetails, chapters: updatedChapters });
   };
@@ -118,8 +118,8 @@ function CourseForm({
     e
   ) => {
     const { name, value } = e.target;
-    console.log(name,value);
-    
+    console.log(name, value);
+
     const updatedChapters = courseDetails.chapters.map((chapter, cIdx) => {
       if (cIdx !== chapterIndex) return chapter;
 
@@ -155,23 +155,23 @@ function CourseForm({
 
   const handleUploadThumbnail = async (file) => {
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("folderName", "thumbnails");
+    formData.append('file', file);
+    formData.append('folderName', 'thumbnails');
     try {
       const response = await uploadCourseMedia(formData).unwrap();
       setCourseDetails({
         ...courseDetails,
         thumbnail: { url: response.url, fileId: response.fileId },
       });
-      toast.success("Thumbnail uploaded successfully");
+      toast.success('Thumbnail uploaded successfully');
       // setThumbnailFile(null);
     } catch (error) {
-      console.error("Thumbnail upload failed:", error);
+      console.error('Thumbnail upload failed:', error);
     }
   };
 
   const textBoxStyle =
-    "shadow-md rounded-lg px-4 py-2  focus:outline-none border-b text-gray-600 border-white  w-full";
+    'shadow-md rounded-lg px-4 py-2  focus:outline-none border-b text-gray-600 border-white  w-full';
 
   const handleResourceFileChange = (
     chapterIndex,
@@ -181,19 +181,19 @@ function CourseForm({
   ) => {
     const file = e.target.files[0];
     if (!file) return;
-    if (courseDetails.title === "") {
-      toast.error("Please enter course title first to upload file");
+    if (courseDetails.title === '') {
+      toast.error('Please enter course title first to upload file');
       return;
     }
-    if (courseDetails.chapters[chapterIndex].title === "") {
-      toast.error("Please enter chapter title first to upload file");
+    if (courseDetails.chapters[chapterIndex].title === '') {
+      toast.error('Please enter chapter title first to upload file');
       return;
     }
     if (
       courseDetails.chapters[chapterIndex].lessons[lessonIndex].lesson_name ===
-      ""
+      ''
     ) {
-      toast.error("Please enter lesson name first to upload file");
+      toast.error('Please enter lesson name first to upload file');
       return;
     }
     const folderName = `${sanitizeName(courseDetails.title)}/${sanitizeName(
@@ -201,8 +201,8 @@ function CourseForm({
     )}`;
 
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("folderName", folderName);
+    formData.append('file', file);
+    formData.append('folderName', folderName);
 
     uploadCourseMedia(formData)
       .unwrap()
@@ -218,14 +218,14 @@ function CourseForm({
                     if (rIdx !== resourceIndex) return res;
                     return {
                       ...res,
-                      title: res?.title || "Other",
+                      title: res?.title || 'Other',
                       url: response.url,
                       fileId: response.fileId,
                     };
                   })
                 : [
                     {
-                      title: "Other",
+                      title: 'Other',
                       url: response.url,
                       fileId: response.fileId,
                     },
@@ -235,60 +235,62 @@ function CourseForm({
           };
         });
         setCourseDetails({ ...courseDetails, chapters: updatedChapters });
-        toast.success("File uploaded successfully");
+        toast.success('File uploaded successfully');
       })
       .catch((error) => {
-        console.error("File upload failed:", error);
-        toast.error("File upload failed");
+        console.error('File upload failed:', error);
+        toast.error('File upload failed');
       });
   };
 
-const addResource = (chapterIndex, lessonIndex) => {
-  const updatedChapters = courseDetails.chapters.map((chapter, cIdx) => {
-    if (cIdx !== chapterIndex) return chapter;
+  const addResource = (chapterIndex, lessonIndex) => {
+    const updatedChapters = courseDetails.chapters.map((chapter, cIdx) => {
+      if (cIdx !== chapterIndex) return chapter;
 
-    return {
-      ...chapter,
-      lessons: chapter.lessons.map((lesson, lIdx) => {
-        if (lIdx !== lessonIndex) return lesson;
+      return {
+        ...chapter,
+        lessons: chapter.lessons.map((lesson, lIdx) => {
+          if (lIdx !== lessonIndex) return lesson;
 
-        const newResource = { title: "", url: "", fileId: "" };
+          const newResource = { title: '', url: '', fileId: '' };
 
-        return {
-          ...lesson,
-          resources: [...(lesson.resources || []), newResource],
-        };
-      }),
-    };
-  });
+          return {
+            ...lesson,
+            resources: [...(lesson.resources || []), newResource],
+          };
+        }),
+      };
+    });
 
-  setCourseDetails({ ...courseDetails, chapters: updatedChapters });
-};
+    setCourseDetails({ ...courseDetails, chapters: updatedChapters });
+  };
 
+  const removeResource = (chapterIndex, lessonIndex, resourceIndex) => {
+    const updatedChapters = courseDetails.chapters.map((chapter, cIdx) => {
+      if (cIdx !== chapterIndex) return chapter;
 
-const removeResource = (chapterIndex, lessonIndex, resourceIndex) => {
-  const updatedChapters = courseDetails.chapters.map((chapter, cIdx) => {
-    if (cIdx !== chapterIndex) return chapter;
+      return {
+        ...chapter,
+        lessons: chapter.lessons.map((lesson, lIdx) => {
+          if (lIdx !== lessonIndex) return lesson;
 
-    return {
-      ...chapter,
-      lessons: chapter.lessons.map((lesson, lIdx) => {
-        if (lIdx !== lessonIndex) return lesson;
+          const filtered = lesson.resources.filter(
+            (_, i) => i !== resourceIndex
+          );
 
-        const filtered = lesson.resources.filter((_, i) => i !== resourceIndex);
+          // Ensure at least one empty resource remains
+          return {
+            ...lesson,
+            resources: filtered.length
+              ? filtered
+              : [{ title: '', url: '', fileId: '' }],
+          };
+        }),
+      };
+    });
 
-        // Ensure at least one empty resource remains
-        return {
-          ...lesson,
-          resources: filtered.length ? filtered : [{ title: "", url: "", fileId: "" }],
-        };
-      }),
-    };
-  });
-
-  setCourseDetails({ ...courseDetails, chapters: updatedChapters });
-};
-
+    setCourseDetails({ ...courseDetails, chapters: updatedChapters });
+  };
 
   return (
     <div className="flex flex-col gap-4 pl-20 pr-16">
@@ -319,7 +321,7 @@ const removeResource = (chapterIndex, lessonIndex, resourceIndex) => {
             className={`${textBoxStyle} cursor-pointer`}
             onClick={() => {
               if (isLoading) {
-                document.getElementById("file-upload-thumbnail").click();
+                document.getElementById('file-upload-thumbnail').click();
               }
             }}
           />
@@ -438,7 +440,7 @@ const removeResource = (chapterIndex, lessonIndex, resourceIndex) => {
                     <div className="flex items-center gap-2" key={resIndex}>
                       <select
                         name="title"
-                        value={resource.title || ""}
+                        value={resource.title || ''}
                         onChange={(e) =>
                           handleResourceChange(
                             chapterIndex,
@@ -452,7 +454,7 @@ const removeResource = (chapterIndex, lessonIndex, resourceIndex) => {
                         <option value="" disabled>
                           Select type
                         </option>
-                        {["video", "document", "link", "other"].map((type) => (
+                        {['video', 'document', 'link', 'other'].map((type) => (
                           <option key={type} value={type}>
                             {type.charAt(0).toUpperCase() + type.slice(1)}
                           </option>
@@ -462,12 +464,12 @@ const removeResource = (chapterIndex, lessonIndex, resourceIndex) => {
                         type="text"
                         name="url"
                         placeholder="Resource URL"
-                        readOnly={resource.title !== "link" ? true : false}
-                        value={resource?.url || ""}
+                        readOnly={resource.title !== 'link' ? true : false}
+                        value={resource?.url || ''}
                         className={`${textBoxStyle} ${
-                          resource.title === "link"
-                            ? " bg-gray-100"
-                            : "cursor-pointer"
+                          resource.title === 'link'
+                            ? ' bg-gray-100'
+                            : 'cursor-pointer'
                         }`}
                         onChange={(e) =>
                           handleResourceChange(
@@ -478,7 +480,7 @@ const removeResource = (chapterIndex, lessonIndex, resourceIndex) => {
                           )
                         }
                         onClick={() => {
-                          if (resource.title !== "link")
+                          if (resource.title !== 'link')
                             document
                               .getElementById(
                                 `file-upload-${chapterIndex}-${lessonIndex}-${resIndex}`
@@ -514,17 +516,15 @@ const removeResource = (chapterIndex, lessonIndex, resourceIndex) => {
                       />
                     </div>
                   ))}
-                  {
-                    lesson?.resources?.length === 0 && (
-                      <button
-                        type="button"
-                        onClick={() => addResource(chapterIndex, lessonIndex)}
-                        className="mt-2 text-blue-500 hover:underline"
-                      >
-                        Add Resource
-                      </button>
-                    )
-                  }
+                  {lesson?.resources?.length === 0 && (
+                    <button
+                      type="button"
+                      onClick={() => addResource(chapterIndex, lessonIndex)}
+                      className="mt-2 text-blue-500 hover:underline"
+                    >
+                      Add Resource
+                    </button>
+                  )}
                   {/* </div> */}
                 </div>
               ))}
@@ -536,7 +536,7 @@ const removeResource = (chapterIndex, lessonIndex, resourceIndex) => {
           // onClick={handleSubmit}
           className="bg-green-500 lg:mx-[45%] md:mx-[30%] mx-[20%] text-white font-medium py-2 px-4 rounded-md hover:bg-green-600 transition-colors"
         >
-          {isUpdate ? "Update Course" : "Create Course"}
+          {isUpdate ? 'Update Course' : 'Create Course'}
         </button>
       </form>
     </div>

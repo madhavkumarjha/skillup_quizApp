@@ -1,21 +1,20 @@
-import React,{useState} from 'react'
-import Header from '../components/Header'
-import Sidebar from '../components/Sidebar'
-import Footer from '../components/Footer'
-import { Outlet } from "react-router-dom";
+import React, { useState } from 'react';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
+import Footer from '../components/Footer';
+import { Outlet } from 'react-router-dom';
 
 function StudentLayout() {
-   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   return (
-    <div className='min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900'>
-         <header className="w-full bg-white dark:bg-gray-900 z-50 fixed top-0 left-0">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+      <header className="w-full bg-white dark:bg-gray-900 z-50 fixed top-0 left-0">
         <Header toggleSidebar={toggleSidebar} />
       </header>
-      <div className='flex-1 flex'>
-
-       <aside className="lg:w-64 shrink-0 lg:fixed lg:overflow-hidden bg-white dark:bg-gray-800">
+      <div className="flex-1 flex">
+        <aside className="lg:w-64 shrink-0 lg:fixed lg:overflow-hidden bg-white dark:bg-gray-800">
           <Sidebar
             isOpen={isSidebarOpen}
             isClosed={() => setIsSidebarOpen(false)}
@@ -26,9 +25,9 @@ function StudentLayout() {
           <Outlet />
         </main>
       </div>
-        <Footer />
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default StudentLayout
+export default StudentLayout;

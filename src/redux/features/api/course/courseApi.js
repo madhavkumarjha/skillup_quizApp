@@ -1,20 +1,20 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAuth } from "../../../../utils/baseQueryWithAuth";
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQueryWithAuth } from '../../../../utils/baseQueryWithAuth';
 
 export const courseApi = createApi({
-  reducerPath: "courseApi",
+  reducerPath: 'courseApi',
   baseQuery: baseQueryWithAuth,
 
-  tagTypes: ["Course"],
+  tagTypes: ['Course'],
   endpoints: (builder) => ({
     getAllCourses: builder.query({
-      query: () => "/course/all",
-      providesTags: ["Course"],
+      query: () => '/course/all',
+      providesTags: ['Course'],
     }),
 
     getInstructorCourses: builder.query({
       query: (id) => `/instructor/${id}/courses`,
-      providesTags: ["Course"],
+      providesTags: ['Course'],
     }),
 
     getCourseById: builder.query({
@@ -23,38 +23,38 @@ export const courseApi = createApi({
 
     createCourse: builder.mutation({
       query: (body) => ({
-        url: "/course/create",
-        method: "POST",
+        url: '/course/create',
+        method: 'POST',
         body,
       }),
-      invalidatesTags: ["Course"],
+      invalidatesTags: ['Course'],
     }),
 
     updateCourse: builder.mutation({
       query: ({ id, ...rest }) => ({
         url: `/course/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: rest,
       }),
-      invalidatesTags: ["Course"],
+      invalidatesTags: ['Course'],
     }),
 
     deleteCourse: builder.mutation({
       query: ({ id, ...rest }) => ({
         url: `/course/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
         body: rest,
       }),
-      invalidatesTags: ["Course"],
+      invalidatesTags: ['Course'],
     }),
 
     publishCourse: builder.mutation({
       query: ({ id, isPublished }) => ({
         url: `/course/publish/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: { isPublished },
       }),
-      invalidatesTags: ["Course"],
+      invalidatesTags: ['Course'],
     }),
   }),
 });

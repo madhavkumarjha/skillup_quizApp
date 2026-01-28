@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function InstructorDashboard() {
-  return (
-    <div>InstructorDashboard</div>
-  )
+  return <div>InstructorDashboard</div>;
 }
 
-export default InstructorDashboard
+export default InstructorDashboard;

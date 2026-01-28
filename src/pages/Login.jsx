@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Mail, Lock, LogIn } from "lucide-react";
-import { useSelector, useDispatch } from "react-redux";
-import { loginUser } from "../redux/features/auth/authSlice";
-import LegalModal from "../components/modals/LegalModal";
-import logo from "../assets/skillup-logo.png";
-import background from "../assets/background_2.jpg";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Mail, Lock, LogIn } from 'lucide-react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUser } from '../redux/features/auth/authSlice';
+import LegalModal from '../components/modals/LegalModal';
+import logo from '../assets/skillup-logo.png';
+import background from '../assets/background_2.jpg';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 // import Loader from "../components/loader/Loader";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(null);
 
   const closeModal = () => setIsModalOpen(null);
@@ -24,23 +24,23 @@ const Login = () => {
     try {
       const res = await dispatch(loginUser({ email, password })).unwrap();
 
-      toast.success("Logged in successfully");
+      toast.success('Logged in successfully');
 
       switch (res.user.role) {
-        case "student":
-          navigate("/student");
+        case 'student':
+          navigate('/student');
           break;
-        case "instructor":
-          navigate("/instructor");
+        case 'instructor':
+          navigate('/instructor');
           break;
-        case "admin":
-          navigate("/admin");
+        case 'admin':
+          navigate('/admin');
           break;
         default:
-          navigate("/");
+          navigate('/');
       }
     } catch (error) {
-      toast.error(error?.message || "Login failed");
+      toast.error(error?.message || 'Login failed');
     }
   };
 
@@ -48,8 +48,8 @@ const Login = () => {
     <div
       style={{
         backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
       className=" text-gray-900 flex justify-center h-screen "
     >
@@ -111,16 +111,16 @@ const Login = () => {
                 </button>
 
                 <p className="mt-6 text-xs text-gray-600 text-center">
-                  I agree to abide by SkillUp’s{" "}
+                  I agree to abide by SkillUp’s{' '}
                   <span
-                    onClick={() => setIsModalOpen("terms")}
+                    onClick={() => setIsModalOpen('terms')}
                     className="border-b cursor-pointer border-gray-500 border-dotted"
                   >
                     Terms of Service
-                  </span>{" "}
-                  and{" "}
+                  </span>{' '}
+                  and{' '}
                   <span
-                    onClick={() => setIsModalOpen("privacy")}
+                    onClick={() => setIsModalOpen('privacy')}
                     className="border-b cursor-pointer border-gray-500 border-dotted"
                   >
                     Privacy Policy
@@ -131,11 +131,11 @@ const Login = () => {
             </form>
           </div>
         </div>
-        {isModalOpen === "terms" && (
+        {isModalOpen === 'terms' && (
           <LegalModal type="terms" onClose={closeModal} />
         )}
 
-        {isModalOpen === "privacy" && (
+        {isModalOpen === 'privacy' && (
           <LegalModal onClose={closeModal} type="privacy" />
         )}
 

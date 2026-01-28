@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 // import React,useState from "react";
-import { Trash2, SquarePen, View, Upload } from "lucide-react";
-import DeleteConfirmModal from "../modals/DeleteModal";
-import { useNavigate } from "react-router-dom";
-import { useDeleteCourseMutation } from "../../redux/features/api/course/courseApi";
-import toast from "react-hot-toast";
+import { Trash2, SquarePen, View, Upload } from 'lucide-react';
+import DeleteConfirmModal from '../modals/DeleteModal';
+import { useNavigate } from 'react-router-dom';
+import { useDeleteCourseMutation } from '../../redux/features/api/course/courseApi';
+import toast from 'react-hot-toast';
 
 function CourseTable({ header, data }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,10 +19,14 @@ function CourseTable({ header, data }) {
   const handleDelete = async (id) => {
     try {
       await deleteCourse({ id }).unwrap();
-      toast.success("Course deleted successfully");
+      toast.success('Course deleted successfully');
     } catch (error) {
-      toast.error("Failed to delete course:", error);
+      toast.error('Failed to delete course:', error);
     }
+  };
+
+  const handleCourseShow = (id) => {
+    navigate(`/instructor/course/show/${id}`);
   };
 
   return (
@@ -43,7 +47,7 @@ function CourseTable({ header, data }) {
         <tbody>
           {data.map((item, index) => (
             <tr
-              key={"i" + index}
+              key={'i' + index}
               className="hover:bg-green-50 transition duration-150 overflow-x-auto scroll-smooth"
             >
               <td className="py-3 px-4 border-b">{item.title}</td>
@@ -84,7 +88,7 @@ function CourseTable({ header, data }) {
               {modalOpen && (
                 <DeleteConfirmModal
                   onClose={() => setModalOpen(false)}
-                  type={"course"}
+                  type={'course'}
                   onConfirm={() => handleDelete(item._id)}
                 />
               )}

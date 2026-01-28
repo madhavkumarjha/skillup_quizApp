@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function UpdateInstructor() {
-  return (
-    <div>UpdateInstructor</div>
-  )
+  return <div>UpdateInstructor</div>;
 }
 
-export default UpdateInstructor
+export default UpdateInstructor;

@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const CourseLesson = ({lessons}) => {
+const CourseLesson = ({ lessons }) => {
   return (
     <div className="p-4 max-w-lg mx-auto">
       <details className="mb-2">

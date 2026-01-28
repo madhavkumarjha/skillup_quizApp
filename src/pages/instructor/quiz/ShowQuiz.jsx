@@ -1,8 +1,8 @@
-import React from "react";
-import QuestionTable from "../../../components/tables/QuestionTable";
-import { useParams } from "react-router-dom";
-import { useGetQuizByIdQuery } from "../../../redux/features/api/quiz/quizApi";
-import Loader from "../../../components/loader/Loader";
+import React from 'react';
+import QuestionTable from '../../../components/tables/QuestionTable';
+import { useParams } from 'react-router-dom';
+import { useGetQuizByIdQuery } from '../../../redux/features/api/quiz/quizApi';
+import Loader from '../../../components/loader/Loader';
 
 function ShowQuiz() {
   const { id } = useParams();

@@ -1,20 +1,20 @@
-import { createApi} from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAuth } from "../../../../utils/baseQueryWithAuth";
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQueryWithAuth } from '../../../../utils/baseQueryWithAuth';
 
 export const quizApi = createApi({
-  reducerPath: "quizApi",
+  reducerPath: 'quizApi',
   baseQuery: baseQueryWithAuth,
 
-  tagTypes: ["Quiz"],
+  tagTypes: ['Quiz'],
   endpoints: (builder) => ({
     getAllQuizzes: builder.query({
-      query: () => "/quiz/all",
-      providesTags: ["Quiz"],
+      query: () => '/quiz/all',
+      providesTags: ['Quiz'],
     }),
 
     getInstructorQuizzes: builder.query({
       query: (instructorId) => `/instructor/${instructorId}/quizzes`,
-      providesTags: ["Quiz"],
+      providesTags: ['Quiz'],
     }),
 
     getQuizById: builder.query({
@@ -23,38 +23,38 @@ export const quizApi = createApi({
 
     createQuiz: builder.mutation({
       query: (body) => ({
-        url: "/quiz/upload",
-        method: "POST",
+        url: '/quiz/upload',
+        method: 'POST',
         body,
       }),
-      invalidatesTags: ["Quiz"],
+      invalidatesTags: ['Quiz'],
     }),
 
     updateQuiz: builder.mutation({
       query: ({ id, ...rest }) => ({
         url: `/quiz/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: rest,
       }),
-      invalidatesTags: ["Quiz"],
+      invalidatesTags: ['Quiz'],
     }),
 
     deleteQuiz: builder.mutation({
       query: ({ id, ...rest }) => ({
         url: `/quiz/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
         body: rest,
       }),
-      invalidatesTags: ["Quiz"],
+      invalidatesTags: ['Quiz'],
     }),
 
     updateStatusQuiz: builder.mutation({
       query: ({ id, status }) => ({
         url: `/quiz/status/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: { status },
       }),
-      invalidatesTags: ["Quiz"],
+      invalidatesTags: ['Quiz'],
     }),
   }),
 });

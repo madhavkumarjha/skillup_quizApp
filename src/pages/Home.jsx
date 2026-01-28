@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import background from "../assets/background_2.jpg";
+import React, { useEffect, useState } from 'react';
+import background from '../assets/background_2.jpg';
 // import { getAllCourses } from "../utils/helper";
-import OurTeam from "../components/OurTeam";
-import CourseCard from "../components/cards/CourseCard";
-import Loader from "../components/loader/Loader";
-import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
+import OurTeam from '../components/OurTeam';
+import CourseCard from '../components/cards/CourseCard';
+import Loader from '../components/loader/Loader';
+import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
 import {
   useGetAllCoursesPublicQuery,
   useGetAllInstructorsPublicQuery,
-} from "../redux/features/api/publicApi";
+} from '../redux/features/api/publicApi';
 
 function Home() {
   const navigate = useNavigate();
@@ -40,18 +40,18 @@ function Home() {
     return <p className="text-red-600 font-semibold">Something went wrong</p>;
 
   const handleNavigate = () => {
-    navigate("/login");
+    navigate('/login');
   };
   const handleQuizOpen = () => {
-    navigate("/startQuiz");
+    navigate('/startQuiz');
   };
 
   return (
     <div
       style={{
         backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
       className=" flex-col items-center justify-center"
     >
@@ -85,8 +85,8 @@ function Home() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-8 px-10 py-8 overflow-y-auto scroll-smooth"
           style={{
             backgroundImage: `url(${background})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         >
           {courseData?.courses?.map((course, index) => (
@@ -102,10 +102,11 @@ function Home() {
           <h1 className="md:text-3xl text-2xl font-extrabold text-indigo-600 mb-2">
             Practice Quiz
           </h1>
-          <p className="text-gray-600 mb-6">
-           Challenge yourself in minutes
-          </p>
-          <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition" onClick={handleQuizOpen}>
+          <p className="text-gray-600 mb-6">Challenge yourself in minutes</p>
+          <button
+            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition"
+            onClick={handleQuizOpen}
+          >
             🚀 Start Quiz
           </button>
         </div>

@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState } from 'react';
 // import React,useState from "react";
-import { Trash2, SquarePen } from "lucide-react";
-import DeleteConfirmModal from "../modals/DeleteModal";
+import { Trash2, SquarePen } from 'lucide-react';
+import DeleteConfirmModal from '../modals/DeleteModal';
 
-
-function TableFormat({ header, data, isEdit, handleDelete,dataFields }) {
+function TableFormat({ header, data, isEdit, handleDelete, dataFields }) {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const getNestedValue = (obj, path) => { return path.split(".").reduce((acc, key) => acc?.[key], obj); };
+  const getNestedValue = (obj, path) => {
+    return path.split('.').reduce((acc, key) => acc?.[key], obj);
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -27,10 +28,15 @@ function TableFormat({ header, data, isEdit, handleDelete,dataFields }) {
         <tbody>
           {data.map((item, index) => (
             <tr
-              key={"i" + index}
+              key={'i' + index}
               className="hover:bg-green-50 transition duration-150"
             >
-            {dataFields.map((field, i) => ( <td className="py-3 px-4 border-b" key={i}> {getNestedValue(item, field)} </td> ))}
+              {dataFields.map((field, i) => (
+                <td className="py-3 px-4 border-b" key={i}>
+                  {' '}
+                  {getNestedValue(item, field)}{' '}
+                </td>
+              ))}
               <td className="py-3 px-4 border-b ">
                 <div className="flex gap-2 items-center justify-between">
                   {isEdit && (
@@ -49,7 +55,7 @@ function TableFormat({ header, data, isEdit, handleDelete,dataFields }) {
               {modalOpen && (
                 <DeleteConfirmModal
                   onClose={() => setModalOpen(false)}
-                  type={"student"}
+                  type={'student'}
                   onConfirm={() => handleDelete(item._id)}
                 />
               )}

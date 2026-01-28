@@ -1,44 +1,51 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authAPI from "./authAPI";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import authAPI from './authAPI';
 
 export const loginUser = createAsyncThunk(
-  "auth/loginUser",
+  'auth/loginUser',
   async (userData, thunkAPI) => {
     try {
       const response = await authAPI.login(userData);
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("refreshToken", response.refreshToken);
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('refreshToken', response.refreshToken);
 
       // Immediately fetch user profile
       const user = await thunkAPI.dispatch(fetchMe()).unwrap();
 
-      return { token: response.token, refreshToken: response.refreshToken, user };
+      return {
+        token: response.token,
+        refreshToken: response.refreshToken,
+        user,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 
-
 export const registerUser = createAsyncThunk(
-  "auth/registerUser",
+  'auth/registerUser',
   async (userData, thunkAPI) => {
     try {
       const response = await authAPI.register(userData);
-       localStorage.setItem("token", response.token);
-      localStorage.setItem("refreshToken", response.refreshToken);
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('refreshToken', response.refreshToken);
 
       // Immediately fetch user profile
       const user = await thunkAPI.dispatch(fetchMe()).unwrap();
 
-      return { token: response.token, refreshToken: response.refreshToken, user };
+      return {
+        token: response.token,
+        refreshToken: response.refreshToken,
+        user,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 
-export const fetchMe = createAsyncThunk("auth/me", async (_, thunkAPI) => {
+export const fetchMe = createAsyncThunk('auth/me', async (_, thunkAPI) => {
   try {
     return await authAPI.me();
   } catch (err) {
@@ -48,11 +55,11 @@ export const fetchMe = createAsyncThunk("auth/me", async (_, thunkAPI) => {
 });
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: {
-    token: localStorage.getItem("token"),
-    refreshToken: localStorage.getItem("refreshToken"),
-    isAuthenticated: !!localStorage.getItem("token"),
+    token: localStorage.getItem('token'),
+    refreshToken: localStorage.getItem('refreshToken'),
+    isAuthenticated: !!localStorage.getItem('token'),
     loading: false,
     user: null,
     error: null,
@@ -65,8 +72,8 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       state.initializing = false;
-      localStorage.removeItem("token");
-      localStorage.removeItem("refreshToken");
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
     },
     restoreSession: (state, action) => {
       state.user = action.payload.user;
@@ -92,8 +99,8 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.refreshToken = action.payload.refreshToken;
         state.isAuthenticated = true;
-        localStorage.setItem("token", action.payload.token);
-        localStorage.setItem("refreshToken", action.payload.refreshToken);
+        localStorage.setItem('token', action.payload.token);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
@@ -117,8 +124,8 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.refreshToken = action.payload.refreshToken;
         state.isAuthenticated = true;
-        localStorage.setItem("token", action.payload.token);
-        localStorage.setItem("refreshToken", action.payload.refreshToken);
+        localStorage.setItem('token', action.payload.token);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;

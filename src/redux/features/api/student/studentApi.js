@@ -1,15 +1,15 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAuth } from "../../../../utils/baseQueryWithAuth";
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQueryWithAuth } from '../../../../utils/baseQueryWithAuth';
 
 export const studentApi = createApi({
-  reducerPath: "studentApi",
-  baseQuery:baseQueryWithAuth,
+  reducerPath: 'studentApi',
+  baseQuery: baseQueryWithAuth,
 
-  tagTypes: ["Student"],
+  tagTypes: ['Student'],
   endpoints: (builder) => ({
     getAllStudents: builder.query({
-      query: () => "/student/all",
-      providesTags: ["Student"],
+      query: () => '/student/all',
+      providesTags: ['Student'],
     }),
 
     getStudentById: builder.query({
@@ -18,55 +18,55 @@ export const studentApi = createApi({
 
     createStudent: builder.mutation({
       query: (body) => ({
-        url: "/student/create",
-        method: "POST",
+        url: '/student/create',
+        method: 'POST',
         body,
       }),
-      invalidatesTags: ["Student"],
+      invalidatesTags: ['Student'],
     }),
 
     updateStudent: builder.mutation({
       query: ({ id, ...rest }) => ({
         url: `/student/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: rest,
       }),
-      invalidatesTags: ["Student"],
+      invalidatesTags: ['Student'],
     }),
 
     deleteStudent: builder.mutation({
       query: (id) => ({
         url: `/admin/students/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
-      invalidatesTags: ["Student"],
+      invalidatesTags: ['Student'],
     }),
 
     enrolledCourse: builder.mutation({
       query: ({ studentId, courseId }) => ({
         url: `/student/enroll/${studentId}/${courseId}`,
-        method: "PATCH",
+        method: 'PATCH',
         // body: { studentId, courseId },
       }),
-      invalidatesTags: ["Student"],
+      invalidatesTags: ['Student'],
     }),
 
     studentCourses: builder.query({
       query: ({ studentId }) => ({
         url: `/student/courses/${studentId}`,
-        method: "GET",
+        method: 'GET',
         // body: { studentId },
       }),
-      invalidatesTags: ["Student"],
+      invalidatesTags: ['Student'],
     }),
 
     studentQuizLeaderboard: builder.query({
       query: ({ studentId }) => ({
         url: `/student/leaderboard/${studentId}`,
-        method: "GET",
+        method: 'GET',
         // body: { studentId },
       }),
-      invalidatesTags: ["Student"],
+      invalidatesTags: ['Student'],
     }),
   }),
 });

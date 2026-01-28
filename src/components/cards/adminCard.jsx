@@ -1,7 +1,7 @@
-import { ShieldUser, GraduationCap } from "lucide-react";
+import { ShieldUser, GraduationCap } from 'lucide-react';
 
 export default function AdminCard({ title, count, type }) {
-  const Icon = type === "instructor" ? GraduationCap : ShieldUser;
+  const Icon = type === 'instructor' ? GraduationCap : ShieldUser;
   return (
     <div className="flex items-center gap-3 p-4 rounded-xl bg-white shadow">
       <Icon className="w-16 h-16 text-green-600" />

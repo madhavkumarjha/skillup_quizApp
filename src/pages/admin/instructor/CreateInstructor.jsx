@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import InstructorForm from "../../../components/form/InstructorForm";
-import { useCreateInstructorMutation } from "../../../redux/features/api/instructor/instructorApi";
-import toast from "react-hot-toast";
+import React, { useState } from 'react';
+import InstructorForm from '../../../components/form/InstructorForm';
+import { useCreateInstructorMutation } from '../../../redux/features/api/instructor/instructorApi';
+import toast from 'react-hot-toast';
 
 function CreateInstructor() {
   const initialStructure = {
-    name: "",
-    email: "",
-    password: "",
-    bio: "",
-    expertise: [""],
-    phone: "",
+    name: '',
+    email: '',
+    password: '',
+    bio: '',
+    expertise: [''],
+    phone: '',
   };
   const [instructorData, setInstructorData] = useState(initialStructure);
 
@@ -20,7 +20,7 @@ function CreateInstructor() {
   const addExpertise = () => {
     setInstructorData((prev) => ({
       ...prev,
-      expertise: [...prev.expertise, ""],
+      expertise: [...prev.expertise, ''],
     }));
   };
 
@@ -47,10 +47,10 @@ function CreateInstructor() {
     e.preventDefault();
     try {
       await createInstructor(instructorData).unwrap();
-      toast.success("Instructor created successfully");
+      toast.success('Instructor created successfully');
       setInstructorData(initialStructure);
     } catch (error) {
-      toast.error("Faied to create instructor");
+      toast.error('Faied to create instructor');
       console.log(error?.data?.message);
     }
   }
@@ -69,7 +69,7 @@ function CreateInstructor() {
         disabled={isLoading}
         className="bg-blue-500 px-4 py-2 rounded-md text-white font-semibold my-3 md:mx-[40%] mx-[30%]"
       >
-        {isLoading ? "Creating..." : "Create Instructor"}
+        {isLoading ? 'Creating...' : 'Create Instructor'}
       </button>
     </div>
   );

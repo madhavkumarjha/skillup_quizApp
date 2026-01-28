@@ -1,16 +1,15 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAuth } from "../../../../utils/baseQueryWithAuth";
-
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseQueryWithAuth } from '../../../../utils/baseQueryWithAuth';
 
 export const instructorApi = createApi({
-  reducerPath: "instructorApi",
+  reducerPath: 'instructorApi',
   baseQuery: baseQueryWithAuth,
 
-  tagTypes: ["Instructor"],
+  tagTypes: ['Instructor'],
   endpoints: (builder) => ({
     getAllInstructors: builder.query({
-      query: () => "/instructor/all",
-      providesTags: ["Instructor"],
+      query: () => '/instructor/all',
+      providesTags: ['Instructor'],
     }),
 
     getInstructorById: builder.query({
@@ -19,26 +18,25 @@ export const instructorApi = createApi({
 
     createInstructor: builder.mutation({
       query: (body) => ({
-        url: "/instructor/create",
-        method: "POST",
+        url: '/instructor/create',
+        method: 'POST',
         body,
       }),
-      invalidatesTags: ["Instructor"],
+      invalidatesTags: ['Instructor'],
     }),
 
     updateInstructor: builder.mutation({
       query: ({ id, ...rest }) => ({
         url: `/instructor/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: rest,
       }),
-      invalidatesTags: ["Instructor"],
+      invalidatesTags: ['Instructor'],
     }),
 
     getInstructorStudents: builder.query({
       query: (id) => `/instructor/${id}/students`,
     }),
-
 
     // deleteInstructor: builder.mutation({
     //   query: ({ id, ...rest }) => ({
@@ -51,9 +49,9 @@ export const instructorApi = createApi({
     deleteInstructor: builder.mutation({
       query: (id) => ({
         url: `/admin/instructors/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
-      invalidatesTags: ["Instructor"],
+      invalidatesTags: ['Instructor'],
     }),
   }),
 });

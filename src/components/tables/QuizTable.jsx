@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react';
 // import React,useState from "react";
-import { Trash2, SquarePen } from "lucide-react";
-import DeleteConfirmModal from "../modals/DeleteModal";
-import { useNavigate } from "react-router-dom";
+import { Trash2, SquarePen } from 'lucide-react';
+import DeleteConfirmModal from '../modals/DeleteModal';
+import { useNavigate } from 'react-router-dom';
 import {
   useDeleteQuizMutation,
   useUpdateStatusQuizMutation,
-} from "../../redux/features/api/quiz/quizApi";
-import toast from "react-hot-toast";
+} from '../../redux/features/api/quiz/quizApi';
+import toast from 'react-hot-toast';
 
 function QuizTable({ header, data }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -25,9 +25,9 @@ function QuizTable({ header, data }) {
   const handleDelete = async (id) => {
     try {
       await deleteQuiz({ id }).unwrap();
-      toast.success("Course deleted successfully");
+      toast.success('Course deleted successfully');
     } catch (error) {
-      toast.error("Failed to delete course:", error);
+      toast.error('Failed to delete course:', error);
     }
   };
 
@@ -40,12 +40,12 @@ function QuizTable({ header, data }) {
 
       const response = await res.data;
       if (response.success) {
-        toast.success("Status updated successfully");
+        toast.success('Status updated successfully');
       } else {
-        toast.error("Status updation failed");
+        toast.error('Status updation failed');
       }
     } catch (error) {
-      toast.error(error.message || "Server unreachable or network error");
+      toast.error(error.message || 'Server unreachable or network error');
       console.log(error.message);
     }
   };
@@ -72,7 +72,7 @@ function QuizTable({ header, data }) {
         <tbody>
           {data.map((item, index) => (
             <tr
-              key={"i" + index}
+              key={'i' + index}
               className="hover:bg-green-50 transition duration-150 cursor-pointer"
               onClick={() => handleQuizShow(item._id)}
             >
@@ -91,13 +91,14 @@ function QuizTable({ header, data }) {
                   }}
                   className="border rounded px-2 py-1"
                 >
-                  {
-                    ["draft", "published", "archived", "inactive"].map((statusOption) => (
+                  {['draft', 'published', 'archived', 'inactive'].map(
+                    (statusOption) => (
                       <option key={statusOption} value={statusOption}>
-                        {statusOption.charAt(0).toUpperCase() + statusOption.slice(1)}
+                        {statusOption.charAt(0).toUpperCase() +
+                          statusOption.slice(1)}
                       </option>
-                    ))
-                  }
+                    )
+                  )}
                 </select>
               </td>
               <td className="py-3 px-4 border-b ">
@@ -133,7 +134,7 @@ function QuizTable({ header, data }) {
             e.stopPropagation();
             setModalOpen(false);
           }}
-          type={"quiz"}
+          type={'quiz'}
           onConfirm={() => handleDelete(selectedQuizId)}
         />
       )}

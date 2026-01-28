@@ -1,5 +1,5 @@
-import React from "react";
-import InputBox from "../InputFields";
+import React from 'react';
+import InputBox from '../InputFields';
 
 function QuizForm({ quizDetails, setQuizDetails, handleSubmit }) {
   const handleInputChange = (e) => {
@@ -11,9 +11,7 @@ function QuizForm({ quizDetails, setQuizDetails, handleSubmit }) {
   };
   return (
     <div className="flex flex-col gap-4 pl-20 pr-16">
-      <h1 className="text-2xl">
-        Quiz Details
-      </h1>
+      <h1 className="text-2xl">Quiz Details</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -63,10 +61,11 @@ function QuizForm({ quizDetails, setQuizDetails, handleSubmit }) {
             <option value="false">False</option>
           </select>
         </div>
-        <button type="submit"
-        className="text-white bg-blue-500 py-2 px-2 mx-[20%] max-w-[30%] font-semibold rounded-lg"
+        <button
+          type="submit"
+          className="text-white bg-blue-500 py-2 px-2 mx-[20%] max-w-[30%] font-semibold rounded-lg"
         >
-            Update Quiz
+          Update Quiz
         </button>
       </form>
     </div>

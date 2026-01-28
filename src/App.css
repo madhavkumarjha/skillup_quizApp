@@ -1,5 +1,4 @@
-@import "tailwindcss";
-
+@import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -12,10 +11,9 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 100rem;
 
-  
   /* font-family */
-  --font-poppins: "Poppins", sans-serif;
-  --font-roboto: "Roboto", sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
 }
 
 button {
@@ -26,13 +24,11 @@ select {
   cursor: pointer;
 }
 
-h1{
+h1 {
   text-align: center;
   font-weight: 600;
   text-decoration: underline;
   color: mediumblue;
-  font-family: "roboto";
+  font-family: 'roboto';
   /* font-size: x-large; */
 }
-
-

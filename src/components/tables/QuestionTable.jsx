@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function QuestionTable() {
-  return (
-    <div>QuestionTable</div>
-  )
+  return <div>QuestionTable</div>;
 }
 
-export default QuestionTable
+export default QuestionTable;

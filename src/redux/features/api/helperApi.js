@@ -1,59 +1,64 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithAuth } from "../../../utils/baseQueryWithAuth";
-
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQueryWithAuth } from '../../../utils/baseQueryWithAuth';
 
 export const helperApi = createApi({
-  reducerPath: "helperApi",
+  reducerPath: 'helperApi',
   baseQuery: baseQueryWithAuth,
 
-  tagTypes: ["Helper"],
+  tagTypes: ['Helper'],
   endpoints: (builder) => ({
     getUserRole: builder.query({
       query: () => `/auth/me`,
-      providesTags: ["Helper"],
+      providesTags: ['Helper'],
     }),
     getUserProfile: builder.query({
       query: (id) => `/auth/profile/${id}`,
-      providesTags: ["Helper"],
+      providesTags: ['Helper'],
     }),
 
     updateProfilePic: builder.mutation({
       query: ({ id, formData }) => ({
         url: `/auth/profile/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: formData,
       }),
-      invalidatesTags: ["Helper"],
+      invalidatesTags: ['Helper'],
     }),
 
     updateUserProfile: builder.mutation({
       query: ({ id, data }) => ({
         url: `/auth/update/profile/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ["Helper"],
+      invalidatesTags: ['Helper'],
     }),
 
     updateUserPassword: builder.mutation({
       query: ({ id, data }) => ({
         url: `/auth/change-password/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ["Helper"],
+      invalidatesTags: ['Helper'],
     }),
 
     uploadCourseMedia: builder.mutation({
       query: (formData) => ({
-        url: "/upload/course",
-        method: "POST",
+        url: '/upload/course',
+        method: 'POST',
         body: formData,
       }),
-      invalidatesTags: ["Helper"],
+      invalidatesTags: ['Helper'],
     }),
   }),
 });
 
-export const { useUpdateProfilePicMutation, useGetUserProfileQuery,useUpdateUserPasswordMutation,useUpdateUserProfileMutation,useUploadCourseMediaMutation ,useGetUserRoleQuery } =
-  helperApi;
+export const {
+  useUpdateProfilePicMutation,
+  useGetUserProfileQuery,
+  useUpdateUserPasswordMutation,
+  useUpdateUserProfileMutation,
+  useUploadCourseMediaMutation,
+  useGetUserRoleQuery,
+} = helperApi;

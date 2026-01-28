@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { X, AlertCircle } from "lucide-react"; // lightweight icons
+import React, { useState } from 'react';
+import { X, AlertCircle } from 'lucide-react'; // lightweight icons
 
 const ProfileModal = ({ onClose, onConfirm }) => {
   const [file, setFile] = useState(null);

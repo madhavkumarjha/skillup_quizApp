@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 function FileUpload() {
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState("");
+  const [preview, setPreview] = useState('');
   const [uploading, setUploading] = useState(false);
-  const [uploadedUrl, setUploadedUrl] = useState("");
+  const [uploadedUrl, setUploadedUrl] = useState('');
 
   const handleFileChange = (e) => {
     const selected = e.target.files[0];
@@ -16,15 +16,15 @@ function FileUpload() {
   };
 
   const handleUpload = async () => {
-    if (!file) return alert("Please select a file first!");
+    if (!file) return alert('Please select a file first!');
     setUploading(true);
 
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append('file', file);
 
     try {
-      const res = await axios.post("http://localhost:5000/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      const res = await axios.post('http://localhost:5000/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (progressEvent) => {
           const progress = Math.round(
             (progressEvent.loaded * 100) / progressEvent.total
@@ -34,10 +34,10 @@ function FileUpload() {
       });
 
       setUploadedUrl(res.data.fileUrl);
-      alert("File uploaded successfully!");
+      alert('File uploaded successfully!');
     } catch (err) {
       console.error(err);
-      alert("Upload failed!");
+      alert('Upload failed!');
     } finally {
       setUploading(false);
     }
@@ -67,7 +67,7 @@ function FileUpload() {
           disabled={uploading}
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
         >
-          {uploading ? "Uploading..." : "Upload"}
+          {uploading ? 'Uploading...' : 'Upload'}
         </button>
 
         {uploadedUrl && (

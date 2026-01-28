@@ -1,6 +1,6 @@
-import { useState } from "react";
-import InputBox from "../InputFields";
-import { X, Plus, Eye, EyeOff } from "lucide-react";
+import { useState } from 'react';
+import InputBox from '../InputFields';
+import { X, Plus, Eye, EyeOff } from 'lucide-react';
 function InstructorForm({
   setInstructorData,
   instructorData,
@@ -53,7 +53,7 @@ function InstructorForm({
           <div className="relative">
             <input
               label="Password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               name="password"
               className="shadow-md rounded-lg px-4 py-2  focus:outline-none border-b border-white text-white font-semibold w-full"
               onChange={handleInputChange}
@@ -96,10 +96,10 @@ function InstructorForm({
         </div>
         <div>
           <label className="flex gap-2 text-white text-lg font-semibold font-Montserrat">
-            Experties{" "}
+            Experties{' '}
             <Plus
               className="bg-blue-500 rounded-full"
-              cursor={"pointer"}
+              cursor={'pointer'}
               onClick={addExpertise}
             />
           </label>

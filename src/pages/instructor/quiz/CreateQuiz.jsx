@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useCreateQuizMutation } from "../../../redux/features/api/quiz/quizApi";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useCreateQuizMutation } from '../../../redux/features/api/quiz/quizApi';
 
-import Loader from "../../../components/loader/Loader";
-import { toast } from "react-hot-toast";
+import Loader from '../../../components/loader/Loader';
+import { toast } from 'react-hot-toast';
 // import { Upload } from "lucide-react";
-import { useGetInstructorCoursesQuery } from "../../../redux/features/api/course/courseApi";
+import { useGetInstructorCoursesQuery } from '../../../redux/features/api/course/courseApi';
 
 function CreateQuiz() {
   const [courses, setCourses] = useState([]);
@@ -37,18 +37,18 @@ function CreateQuiz() {
 
     // Create fresh FormData each submit
     const formData = new FormData();
-    formData.append("courseId", courseId);
-    formData.append("instructorId", instructorId);
+    formData.append('courseId', courseId);
+    formData.append('instructorId', instructorId);
     if (selectedFile) {
-      formData.append("file", selectedFile);
+      formData.append('file', selectedFile);
     }
 
     try {
       await createQuiz(formData).unwrap();
-      toast.success("Quiz created successfully");
+      toast.success('Quiz created successfully');
       setSelectedFile(null); // ✅ correct reset
     } catch (error) {
-      toast.error("Error creating quiz");
+      toast.error('Error creating quiz');
       console.error(error);
     }
   };
@@ -84,11 +84,11 @@ function CreateQuiz() {
         <div className="flex my-2 items-center gap-4">
           <input
             type="text"
-            value={selectedFile ? selectedFile.name : ""}
+            value={selectedFile ? selectedFile.name : ''}
             placeholder="Quiz file upload"
             readOnly
             className="shadow-md rounded-lg px-4 py-2 focus:outline-none border-b text-gray-600 border-white w-full cursor-pointer"
-            onClick={() => document.getElementById("file-upload-quiz").click()}
+            onClick={() => document.getElementById('file-upload-quiz').click()}
           />
           <input
             type="file"

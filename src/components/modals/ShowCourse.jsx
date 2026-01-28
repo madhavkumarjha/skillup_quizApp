@@ -1,5 +1,5 @@
-import React from "react";
-import CourseLesson from "../CourseLessons";
+import React from 'react';
+import CourseLesson from '../CourseLessons';
 
 function ShowCourse({ course, onClose }) {
   if (!course) return null; // don't render if no course selected

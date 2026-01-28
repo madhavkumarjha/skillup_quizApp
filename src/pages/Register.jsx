@@ -1,40 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { Mail, Lock, UserPlus2, Eye, EyeOff, User } from "lucide-react";
-import LegalModal from "../components/modals/LegalModal";
-import logo from "../assets/skillup-logo.png";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { registerUser } from "../redux/features/auth/authSlice";
-import Loader from "../components/loader/Loader";
-import background from "../assets/background_2.jpg";
+import React, { useState, useEffect } from 'react';
+import { Mail, Lock, UserPlus2, Eye, EyeOff, User } from 'lucide-react';
+import LegalModal from '../components/modals/LegalModal';
+import logo from '../assets/skillup-logo.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../redux/features/auth/authSlice';
+import Loader from '../components/loader/Loader';
+import background from '../assets/background_2.jpg';
 
 const Register = () => {
   const [isModalOpen, setIsModalOpen] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    role: "student",
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    role: 'student',
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, token,isAuthenticated } = useSelector((state) => state.auth);
+  const { loading, token, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
-
   const passwordSeen = () => {
     setShowPassword(!showPassword);
   };
 
-   const {
+  const {
     data: user,
     isLoading,
     isError,
@@ -42,13 +42,12 @@ const Register = () => {
     skip: !isAuthenticated,
   });
 
-
   const handleSubmit = (e) => {
     try {
       e.preventDefault();
 
       if (formData.password !== formData.confirmPassword) {
-        alert("Passwords do not match!");
+        alert('Passwords do not match!');
         return;
       }
 
@@ -60,7 +59,7 @@ const Register = () => {
         })
       );
     } catch (error) {
-      throw new Error({ error: error.message, message: "server error" });
+      throw new Error({ error: error.message, message: 'server error' });
     }
   };
 
@@ -70,39 +69,37 @@ const Register = () => {
     if (token && user) {
       // role-based redirect
       switch (user.role) {
-        case "student":
-          navigate("/student");
+        case 'student':
+          navigate('/student');
           break;
-        case "instructor":
-          navigate("/instructor");
+        case 'instructor':
+          navigate('/instructor');
           break;
-        case "admin":
-          navigate("/admin");
+        case 'admin':
+          navigate('/admin');
           break;
         default:
-          navigate("/");
+          navigate('/');
       }
     }
   }, [token, user, navigate]);
 
-    if (loading || isLoading) return <Loader />;
+  if (loading || isLoading) return <Loader />;
   return (
-     <div
-          style={{
-            backgroundImage: `url(${background})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-          className=" text-gray-900 flex justify-center h-screen "
-        >
-          <div className="max-w-7xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+    <div
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+      className=" text-gray-900 flex justify-center h-screen "
+    >
+      <div className="max-w-7xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         {/* Left Section */}
         <div className="lg:w-1/2 xl:w-5/12 my-[12%] md:my-[15%] xsm:my-[30%]">
           <img src={logo} className="w-64 mx-auto" alt="SkillUp Logo" />
 
-          <h1 className="text-2xl xl:text-3xl mt-8">
-            Sign Up
-          </h1>
+          <h1 className="text-2xl xl:text-3xl mt-8">Sign Up</h1>
 
           <form
             onSubmit={handleSubmit}
@@ -140,7 +137,7 @@ const Register = () => {
             <div className="relative">
               <Lock size={18} className="absolute left-3 top-3 text-gray-400" />
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="Password"
                 value={formData.password}
@@ -164,7 +161,7 @@ const Register = () => {
             <div className="relative">
               <Lock size={18} className="absolute left-3 top-3 text-gray-400" />
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="confirmPassword"
                 placeholder="Confirm Password"
                 value={formData.confirmPassword}
@@ -185,17 +182,17 @@ const Register = () => {
 
             {/* Terms */}
             <p className="text-xs text-gray-600 text-center mt-4">
-              I agree to the{" "}
+              I agree to the{' '}
               <span
                 className="border-b border-gray-500 cursor-pointer"
-                onClick={() => setIsModalOpen("terms")}
+                onClick={() => setIsModalOpen('terms')}
               >
                 Terms of Service
-              </span>{" "}
-              and{" "}
+              </span>{' '}
+              and{' '}
               <span
                 className="border-b border-gray-500 cursor-pointer"
-                onClick={() => setIsModalOpen("privacy")}
+                onClick={() => setIsModalOpen('privacy')}
               >
                 Privacy Policy
               </span>
@@ -217,11 +214,11 @@ const Register = () => {
       </div>
 
       {/* LEGAL MODALS */}
-      {isModalOpen === "terms" && (
+      {isModalOpen === 'terms' && (
         <LegalModal type="terms" onClose={closeModal} />
       )}
 
-      {isModalOpen === "privacy" && (
+      {isModalOpen === 'privacy' && (
         <LegalModal type="privacy" onClose={closeModal} />
       )}
     </div>

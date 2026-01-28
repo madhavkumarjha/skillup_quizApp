@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
-import Footer from "../components/Footer";
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
+import Footer from '../components/Footer';
 
 function InstructorLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
+  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 ">
