@@ -1,22 +1,21 @@
-import { User } from "../models/user.models.js";
-import { filterUserData } from "../utils/filteredUserData.js";
+import { User } from '../models/user.models.js';
+import { filterUserData } from '../utils/filteredUserData.js';
 // import imagekit from "../utils/imageKit.js";
 
 // get admin by id
 export const getAdminById = async (req, res) => {
   try {
     const { adminId } = req.params;
-    const admin = await User.findOne({ _id: adminId, role: "admin" });
+    const admin = await User.findOne({ _id: adminId, role: 'admin' });
     if (!admin) {
-      return res.status(404).json({ message: "Admin not found" });
+      return res.status(404).json({ message: 'Admin not found' });
     }
     const safeAdmin = filterUserData(admin);
     res.status(200).json({ admin: safeAdmin });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: 'Server error' });
   }
 };
-
 
 // // update admin details
 // export const updateAdminDetails = async (req, res) => {
@@ -44,14 +43,14 @@ export const deleteInstructor = async (req, res) => {
     const { instructorId } = req.params;
     const instructor = await User.findOneAndDelete({
       _id: instructorId,
-      role: "instructor",
+      role: 'instructor',
     });
     if (!instructor) {
-      return res.status(404).json({ message: "Instructor not found" });
+      return res.status(404).json({ message: 'Instructor not found' });
     }
-    res.status(200).json({ message: "Instructor deleted successfully" });
+    res.status(200).json({ message: 'Instructor deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -61,13 +60,13 @@ export const deleteStudent = async (req, res) => {
     const { studentId } = req.params;
     const student = await User.findOneAndDelete({
       _id: studentId,
-      role: "user",
+      role: 'user',
     });
     if (!student) {
-      return res.status(404).json({ message: "Student not found" });
+      return res.status(404).json({ message: 'Student not found' });
     }
-    res.status(200).json({ message: "Student deleted successfully" });
+    res.status(200).json({ message: 'Student deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

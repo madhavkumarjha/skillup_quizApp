@@ -9,7 +9,7 @@ import instructorRoutes from './routes/instructor.routes.js';
 import quizRoutes from './routes/quiz.routes.js';
 import courseRoutes from './routes/course.routes.js';
 import mediaRoutes from './routes/media.routes.js';
-import questionRoutes from './routes/quiz.routes.js'
+import questionRoutes from './routes/quiz.routes.js';
 
 dotenv.config({ quiet: true });
 
@@ -25,15 +25,17 @@ app.use('/api/student', studentRoutes);
 app.use('/api/instructor', instructorRoutes);
 app.use('/api/quiz', quizRoutes);
 app.use('/api/course', courseRoutes);
-app.use("/api/upload",mediaRoutes);
-app.use("/api/questions",questionRoutes);
+app.use('/api/upload', mediaRoutes);
+app.use('/api/questions', questionRoutes);
 
-
-mongoose.connect(process.env.MONGO_URI).then(() => {
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
     console.log('Connected to MongoDB');
     app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
+      console.log(`Server is running on port ${PORT}`);
     });
-}).catch((error) => {
+  })
+  .catch((error) => {
     console.error('MongoDB connection error:', error);
-});
+  });

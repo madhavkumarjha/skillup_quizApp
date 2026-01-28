@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema(
   {
@@ -27,23 +27,23 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      default: "student",
-      enum: ["student", "admin", "instructor"],
+      default: 'student',
+      enum: ['student', 'admin', 'instructor'],
     },
     specializations: {
       type: [String],
       enum: [
-        "frontend",
-        "backend",
-        "database",
-        "programming",
-        "design",
-        "business",
-        "marketing",
-        "data science",
-        "cloud",
-        "cybersecurity",
-        "other",
+        'frontend',
+        'backend',
+        'database',
+        'programming',
+        'design',
+        'business',
+        'marketing',
+        'data science',
+        'cloud',
+        'cybersecurity',
+        'other',
       ],
     },
     avatar: {
@@ -62,19 +62,19 @@ const userSchema = new mongoose.Schema(
     // ✅ Student-specific fields
     enrolledCourses: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref: "Course",
+      ref: 'Course',
       default: undefined,
     },
     completedLessons: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref: "Lesson",
+      ref: 'Lesson',
       default: undefined,
     },
 
     quizScores: {
       type: [
         {
-          quiz: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" },
+          quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' },
           score: Number,
         },
       ],
@@ -86,12 +86,12 @@ const userSchema = new mongoose.Schema(
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
-  { timestamps: true, optimisticConcurrency: false,versionKey: false }
+  { timestamps: true, optimisticConcurrency: false, versionKey: false }
 );
 
 //hash password before saving (you can implement this with bcrypt in future)
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
@@ -102,4 +102,4 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-export const User = mongoose.model("User", userSchema);
+export const User = mongoose.model('User', userSchema);

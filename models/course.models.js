@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 // Lesson Schema
 const lessonSchema = new mongoose.Schema({
@@ -10,7 +10,7 @@ const lessonSchema = new mongoose.Schema({
         type: String,
         // required: true,
         trim: true,
-        enum: ["video", "document", "link", "other"],
+        enum: ['video', 'document', 'link', 'other'],
       },
       url: { type: String },
       fileId: { type: String },
@@ -24,7 +24,7 @@ const chapterSchema = new mongoose.Schema({
   title: { type: String, required: true },
   summary: { type: String },
   lessons: [lessonSchema],
-  quiz: { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" }, // optional quiz per chapter
+  quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }, // optional quiz per chapter
   active: { type: Boolean, default: false }, // availability toggle
 });
 
@@ -35,7 +35,7 @@ const courseSchema = new mongoose.Schema(
     description: { type: String, required: true },
     instructor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
 
@@ -46,21 +46,21 @@ const courseSchema = new mongoose.Schema(
     category: {
       type: String,
       enum: [
-        "frontend",
-        "backend",
-        "database",
-        "programming",
-        "design",
-        "business",
-        "marketing",
-        "other",
+        'frontend',
+        'backend',
+        'database',
+        'programming',
+        'design',
+        'business',
+        'marketing',
+        'other',
       ],
-      default: "other",
+      default: 'other',
     },
     level: {
       type: String,
-      enum: ["beginner", "intermediate", "advanced"],
-      default: "beginner",
+      enum: ['beginner', 'intermediate', 'advanced'],
+      default: 'beginner',
     },
     duration: { type: Number }, // estimated total minutes
     tags: [String],
@@ -68,8 +68,8 @@ const courseSchema = new mongoose.Schema(
     // Status fields
     status: {
       type: String,
-      enum: ["draft", "published", "archived"],
-      default: "draft",
+      enum: ['draft', 'published', 'archived'],
+      default: 'draft',
     },
     // Scheduling
     startDate: { type: Date },
@@ -82,7 +82,7 @@ const courseSchema = new mongoose.Schema(
           type: String,
           // required: true,
           trim: true,
-          enum: ["syllabus", "curriculum", "other"],
+          enum: ['syllabus', 'curriculum', 'other'],
         },
         url: { type: String },
         fileId: { type: String },
@@ -94,9 +94,9 @@ const courseSchema = new mongoose.Schema(
     },
 
     // Quizzes (course‑level, e.g. final exam)
-    quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Quiz" }],
+    quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }],
   },
   { timestamps: true, optimisticConcurrency: false, versionKey: false }
 );
 
-export const Course = mongoose.model("Course", courseSchema);
+export const Course = mongoose.model('Course', courseSchema);

@@ -1,4 +1,4 @@
-import imagekit, { deleteMedia } from "../utils/imageKit.js";
+import imagekit, { deleteMedia } from '../utils/imageKit.js';
 
 export const getAuthParams = (req, res) => {
   try {
@@ -14,16 +14,20 @@ export const uploadImage = async (req, res) => {
     const { folderName } = req.body;
 
     if (!req.file) {
-      return res.status(400).json({ success: false, message: "No file uploaded" });
+      return res
+        .status(400)
+        .json({ success: false, message: 'No file uploaded' });
     }
 
     // Validate MIME type
-    if (!req.file.mimetype.startsWith("image/")) {
-      return res.status(400).json({ success: false, message: "Only image files are allowed" });
+    if (!req.file.mimetype.startsWith('image/')) {
+      return res
+        .status(400)
+        .json({ success: false, message: 'Only image files are allowed' });
     }
 
     const result = await imagekit.upload({
-      file: req.file.buffer.toString("base64"),
+      file: req.file.buffer.toString('base64'),
       fileName: req.file.originalname,
       folder: `/skillUp/courses/${folderName}`,
     });
@@ -42,18 +46,20 @@ export const uploadMedia = async (req, res) => {
   try {
     const { folderName } = req.body;
     if (!req.file) {
-      return res.status(400).json({ success: false, message: "No file uploaded" });
+      return res
+        .status(400)
+        .json({ success: false, message: 'No file uploaded' });
     }
     const result = await imagekit.upload({
-      file: req.file.buffer.toString("base64"),
+      file: req.file.buffer.toString('base64'),
       fileName: req.file.originalname,
-        folder: `/skillUp/courses/${folderName}`,
+      folder: `/skillUp/courses/${folderName}`,
     });
 
     res.status(201).json({
-        success: true,
-        url: result.url,
-        fileId: result.fileId,
+      success: true,
+      url: result.url,
+      fileId: result.fileId,
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -85,6 +91,6 @@ export const deleteCourseMedia = async (courseDetails) => {
       `Deleted ${fileIds.length} media files (resources + thumbnail) for course ${courseDetails.title}`
     );
   } catch (error) {
-    console.error("Error deleting course media:", error.message);
+    console.error('Error deleting course media:', error.message);
   }
 };

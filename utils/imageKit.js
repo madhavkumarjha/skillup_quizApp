@@ -1,5 +1,5 @@
-import ImageKit from "imagekit";
-import dotenv from "dotenv";
+import ImageKit from 'imagekit';
+import dotenv from 'dotenv';
 
 dotenv.config({ quiet: true });
 
@@ -30,7 +30,7 @@ export const deleteMedia = async (fileId) => {
 
 export const listProjectMediaGrouped = async () => {
   try {
-    const subfolders = ["courses", "profile"]; // define your known folders
+    const subfolders = ['courses', 'profile']; // define your known folders
 
     const folderFetches = await Promise.all(
       subfolders.map(async (folder) => {
@@ -44,7 +44,7 @@ export const listProjectMediaGrouped = async () => {
 
     return folderFetches;
   } catch (error) {
-    console.error("Error listing project media:", error.message);
+    console.error('Error listing project media:', error.message);
     throw error;
   }
 };
@@ -53,13 +53,13 @@ export const listCoursesMediaGrouped = async () => {
   try {
     // Get all files under /quizHub/courses
     const files = await imagekit.listFiles({
-      path: "/quizHub/courses",
+      path: '/quizHub/courses',
       limit: 100,
     });
 
     // Extract unique course names (3rd segment in path)
     const courseNames = [
-      ...new Set(files.map((f) => f.filePath.split("/")[3])),
+      ...new Set(files.map((f) => f.filePath.split('/')[3])),
     ];
 
     // Group files by course name
@@ -72,7 +72,7 @@ export const listCoursesMediaGrouped = async () => {
 
     return grouped;
   } catch (error) {
-    console.error("Error listing courses media:", error.message);
+    console.error('Error listing courses media:', error.message);
     throw error;
   }
 };
@@ -80,13 +80,13 @@ export const listCoursesMediaGrouped = async () => {
 export const uploadMedia = async (fileBuffer, originalName, folderPath) => {
   try {
     const result = await imagekit.upload({
-      file: fileBuffer.toString("base64"),
+      file: fileBuffer.toString('base64'),
       fileName: originalName,
       folder: folderPath,
     });
     return result;
   } catch (error) {
-    console.error("Error uploading media:", error.message);
+    console.error('Error uploading media:', error.message);
     throw error;
   }
 };

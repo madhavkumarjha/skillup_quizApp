@@ -6,27 +6,36 @@ import {
   getStudentCourses,
   updateStudent,
   getAllStudents,
-} from "../controllers/student.controller.js";
+} from '../controllers/student.controller.js';
 
-import express from "express";
-import { authenticate, allowStudent, allowAdmin } from "../middlewares/auth.middleware.js";
+import express from 'express';
+import {
+  authenticate,
+  allowStudent,
+  allowAdmin,
+} from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
 // Student routes for managing students
-router.get("/all",authenticate,allowAdmin,getAllStudents);
-router.post("/create", createStudent);
-router.post("/enroll/:studentId/:courseId", authenticate, allowStudent, enrollStudentInCourse);
-router.patch("/:studentId", authenticate, allowStudent, updateStudent);
-router.get("/:studentId", authenticate, allowStudent, getStudentById);
+router.get('/all', authenticate, allowAdmin, getAllStudents);
+router.post('/create', createStudent);
+router.post(
+  '/enroll/:studentId/:courseId',
+  authenticate,
+  allowStudent,
+  enrollStudentInCourse
+);
+router.patch('/:studentId', authenticate, allowStudent, updateStudent);
+router.get('/:studentId', authenticate, allowStudent, getStudentById);
 router.get(
-  "/leaderboard/:studentId",
+  '/leaderboard/:studentId',
   authenticate,
   allowStudent,
   getStudentLeaderboard
 );
 router.get(
-  "/courses/:studentId",
+  '/courses/:studentId',
   authenticate,
   allowStudent,
   getStudentCourses

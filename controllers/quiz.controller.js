@@ -1,6 +1,6 @@
-import { Quiz } from "../models/quiz.models.js";
-import { Course } from "../models/course.models.js";
-import XLSX from "xlsx";
+import { Quiz } from '../models/quiz.models.js';
+import { Course } from '../models/course.models.js';
+import XLSX from 'xlsx';
 
 // create a new Quiz
 export const uploadQuizFromExcel = async (req, res) => {
@@ -9,23 +9,21 @@ export const uploadQuizFromExcel = async (req, res) => {
     const { courseId } = req.body;
 
     const instructor = await User.findById(instructorId);
-    if (!instructor || instructor.role !== "instructor") {
-      return res
-        .status(403)
-        .json({
-          message: "Only instructors can create courses",
-          success: false
-        });
+    if (!instructor || instructor.role !== 'instructor') {
+      return res.status(403).json({
+        message: 'Only instructors can create courses',
+        success: false,
+      });
     }
 
     if (!req.file) {
-      return res.status(400).json({ message: "No Excel file uploaded" });
+      return res.status(400).json({ message: 'No Excel file uploaded' });
     }
 
     const course = await Course.findById(courseId);
 
     if (!course) {
-      return res.status(400).json({ message: "Course not found" });
+      return res.status(400).json({ message: 'Course not found' });
     }
 
     const workbook = XLSX.readFile(req.file.path);
@@ -33,10 +31,10 @@ export const uploadQuizFromExcel = async (req, res) => {
     const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
     if (sheetData.length === 0) {
-      return res.status(400).json({ message: "Excel sheet is empty" });
+      return res.status(400).json({ message: 'Excel sheet is empty' });
     }
 
-    const quiztitle = sheetData[0].title || "Untitled Quiz";
+    const quiztitle = sheetData[0].title || 'Untitled Quiz';
 
     const questions = sheetData.map((row, index) => {
       let options = [];
@@ -44,20 +42,20 @@ export const uploadQuizFromExcel = async (req, res) => {
       const question = {
         questionText: row.questionText,
         marks: Number(row.marks) || 1,
-        explanation: row.explanation || "",
-        difficulty: row.difficulty || "medium",
-        type: row.type || "mcq",
+        explanation: row.explanation || '',
+        difficulty: row.difficulty || 'medium',
+        type: row.type || 'mcq',
       };
 
-      if (row.type === "true_false") {
-        options = ["True", "False"];
+      if (row.type === 'true_false') {
+        options = ['True', 'False'];
         correctIndex = Number(row.correctAnswerIndex);
         if (correctIndex < 0 || correctIndex > 1) {
           throw new Error(`Invalid correctAnswerIndex at row ${index + 2}`);
         }
         question.options = options;
         question.correctAnswerIndex = correctIndex;
-      } else if (row.type === "mcq") {
+      } else if (row.type === 'mcq') {
         options = [row.option1, row.option2, row.option3, row.option4].filter(
           Boolean
         );
@@ -67,7 +65,7 @@ export const uploadQuizFromExcel = async (req, res) => {
         }
         question.options = options;
         question.correctAnswerIndex = correctIndex;
-      } else if (row.type === "fill_blank") {
+      } else if (row.type === 'fill_blank') {
         if (!row.correctAnswerText) {
           throw new Error(`Missing correctAnswerText at row ${index + 2}`);
         }
@@ -86,7 +84,7 @@ export const uploadQuizFromExcel = async (req, res) => {
       questions,
       totalMarks,
       passingMarks: Math.floor(totalMarks * 0.4),
-      status: "draft",
+      status: 'draft',
       timeLimit: 15,
     });
 
@@ -96,14 +94,14 @@ export const uploadQuizFromExcel = async (req, res) => {
     await course.save();
 
     res.status(201).json({
-      message: "Quiz uploaded successfully",
+      message: 'Quiz uploaded successfully',
       quizId: newQuiz._id,
       totalQuestions: questions.length,
       totalMarks,
       success: true,
     });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
@@ -115,8 +113,8 @@ export const getQuizzes = async (req, res) => {
     const skip = (page - 1) * limit;
 
     const quizzes = await Quiz.find({})
-      .populate("instructor", "name email bio")
-      .populate("course", "title description")
+      .populate('instructor', 'name email bio')
+      .populate('course', 'title description')
       .skip(skip)
       .limit(limit);
 
@@ -131,7 +129,7 @@ export const getQuizzes = async (req, res) => {
       data: quizzes,
     });
   } catch (err) {
-    res.status(500).json({ message: "Server error", error: err.message });
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
 
@@ -140,15 +138,15 @@ export const getQuizById = async (req, res) => {
   try {
     const { quizId } = req.params;
     const quiz = await Quiz.findById(quizId)
-      .populate("instructor", "name email bio")
-      .populate("course", "title description");
+      .populate('instructor', 'name email bio')
+      .populate('course', 'title description');
 
     if (!quiz) {
-      return res.status(404).json({ message: "Quiz not found" });
+      return res.status(404).json({ message: 'Quiz not found' });
     }
     res.status(200).json({ success: true, quiz });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
@@ -160,7 +158,7 @@ export const updateQuiz = async (req, res) => {
       req.body;
     const quiz = await Quiz.findById(quizId);
     if (!quiz) {
-      return res.status(404).json({ message: "Quiz not found" });
+      return res.status(404).json({ message: 'Quiz not found' });
     }
     if (title) quiz.title = title;
     if (maxAttempts) quiz.maxAttempts = maxAttempts;
@@ -171,9 +169,9 @@ export const updateQuiz = async (req, res) => {
     await quiz.save();
     res
       .status(200)
-      .json({ success: true, message: "Quiz updated successfully", quiz });
+      .json({ success: true, message: 'Quiz updated successfully', quiz });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
@@ -183,7 +181,7 @@ export const deleteQuiz = async (req, res) => {
     const { quizId } = req.params;
     const quiz = await Quiz.findByIdAndDelete(quizId);
     if (!quiz) {
-      return res.status(404).json({ message: "Quiz not found" });
+      return res.status(404).json({ message: 'Quiz not found' });
     }
 
     const course = await Course.findById(quiz.course);
@@ -196,9 +194,9 @@ export const deleteQuiz = async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, message: "Quiz deleted successfully" });
+      .json({ success: true, message: 'Quiz deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
@@ -207,11 +205,11 @@ export const getQuizzesByCourse = async (req, res) => {
   try {
     const { courseId } = req.params;
     const quizzes = await Quiz.find({ course: courseId })
-      .populate("instructor", "name email bio")
-      .populate("course", "title description");
+      .populate('instructor', 'name email bio')
+      .populate('course', 'title description');
     res.status(200).json({ success: true, quizzes });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
@@ -220,11 +218,11 @@ export const getQuizzesByInstructor = async (req, res) => {
   try {
     const instructorId = req.user.id;
     const quizzes = await Quiz.find({ instructor: instructorId })
-      .populate("course", "title")
-      .populate("course", "title description");
+      .populate('course', 'title')
+      .populate('course', 'title description');
     res.status(200).json({ success: true, quizzes });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
@@ -233,17 +231,17 @@ export const updateQuizStatus = async (req, res) => {
     const { quizId } = req.params;
     const quiz = await Quiz.findById(quizId);
     if (!quiz) {
-      return res.status(404).json({ message: "Quiz not found" });
+      return res.status(404).json({ message: 'Quiz not found' });
     }
     const { status } = req.body;
     if (status) quiz.status = status;
     await quiz.save();
     res.status(200).json({
       success: true,
-      message: "Quiz status updated successfully",
+      message: 'Quiz status updated successfully',
       status: status,
     });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

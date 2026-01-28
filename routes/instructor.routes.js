@@ -6,38 +6,38 @@ import {
   getInstructorCourses,
   getAllInstructors,
   getInstructorQuizzes,
-} from "../controllers/instructor.controller.js";
+} from '../controllers/instructor.controller.js';
 
-import express from "express";
+import express from 'express';
 import {
   authenticate,
   allowInstructor,
   allowAdmin,
-} from "../middlewares/auth.middleware.js";
+} from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
 // Instructor routes
-router.get("/all",getAllInstructors);
-router.post("/create", authenticate, allowAdmin, createInstructor);
-router.patch("/:instructorId", authenticate, allowInstructor, updateInstructor);
-router.get("/:instructorId", authenticate, allowInstructor, getInstructorById);
+router.get('/all', getAllInstructors);
+router.post('/create', authenticate, allowAdmin, createInstructor);
+router.patch('/:instructorId', authenticate, allowInstructor, updateInstructor);
+router.get('/:instructorId', authenticate, allowInstructor, getInstructorById);
 router.get(
-  "/:instructorId/students",
+  '/:instructorId/students',
   authenticate,
   allowInstructor,
   getInstructorStudents
 );
 
 router.get(
-  "/:instructorId/quizzes",
+  '/:instructorId/quizzes',
   authenticate,
   allowInstructor,
   getInstructorQuizzes
 );
 
 router.get(
-  "/:instructorId/courses",
+  '/:instructorId/courses',
   authenticate,
   allowInstructor,
   getInstructorCourses
